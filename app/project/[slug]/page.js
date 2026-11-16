@@ -40,19 +40,15 @@ export default async function ProjectPage({ params }) {
 
       <div className="project-images">
         {embeds.map((embed, i) => (
-          <div key={`embed-${i}`} className="project-embed">
+          <div
+            key={`embed-${i}`}
+            className={embed.type === "video" ? "embed-video" : "embed-audio"}
+          >
             <iframe
               src={embed.src}
               title={`${project.title} — ${embed.type} ${i + 1}`}
               allowFullScreen
               allow="autoplay; fullscreen"
-              style={{
-                width: "100%",
-                height: embed.type === "audio" ? "75px" : "0",
-                aspectRatio: embed.type === "video" ? "16 / 9" : undefined,
-                border: "none",
-                background: embed.type === "video" ? "#191919" : "transparent",
-              }}
             />
           </div>
         ))}
