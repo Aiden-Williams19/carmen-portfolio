@@ -215,7 +215,7 @@ button {
   }
 }
 
-/* ===== PROJECT IMAGES ===== */
+/* ===== PROJECT IMAGES & EMBEDS ===== */
 .project-images {
   display: flex;
   flex-direction: column;
@@ -225,6 +225,15 @@ button {
 
 .project-images img {
   width: 100%;
+}
+
+.project-embed {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.project-embed iframe {
+  display: block;
 }
 
 /* ===== CONTACT PAGE ===== */

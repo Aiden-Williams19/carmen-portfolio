@@ -6,8 +6,9 @@ export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
 }
 
-export function generateMetadata({ params }) {
-  const project = getProjectBySlug(params.slug);
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
   if (!project) return { title: "Not Found" };
   return {
     title: `${project.title} — Carmen le Grange`,
@@ -15,9 +16,12 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function ProjectPage({ params }) {
-  const project = getProjectBySlug(params.slug);
+export default async function ProjectPage({ params }) {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
   if (!project) notFound();
+
+  const embeds = project.embeds || [];
 
   return (
     <div className="site-container">
@@ -35,12 +39,30 @@ export default function ProjectPage({ params }) {
       </div>
 
       <div className="project-images">
+        {embeds.map((embed, i) => (
+          <div key={`embed-${i}`} className="project-embed">
+            <iframe
+              src={embed.src}
+              title={`${project.title} — ${embed.type} ${i + 1}`}
+              allowFullScreen
+              allow="autoplay; fullscreen"
+              style={{
+                width: "100%",
+                height: embed.type === "audio" ? "75px" : "0",
+                aspectRatio: embed.type === "video" ? "16 / 9" : undefined,
+                border: "none",
+                background: embed.type === "video" ? "#191919" : "transparent",
+              }}
+            />
+          </div>
+        ))}
+
         {project.images.map((src, i) => (
           <img
             key={i}
             src={src}
             alt={`${project.title} — image ${i + 1}`}
-            loading={i === 0 ? "eager" : "lazy"}
+            loading={i === 0 && embeds.length === 0 ? "eager" : "lazy"}
           />
         ))}
       </div>
