@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectBySlug, getAllSlugs } from "../../../lib/projects";
 import ListerineLayout from "../../../components/ListerineLayout";
+import BookLoungeLayout from "../../../components/BookLoungeLayout";
 
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -24,7 +25,8 @@ export default async function ProjectPage({ params }) {
 
   const embeds = project.embeds || [];
 
-  if (project.customLayout && slug === "listerine") {
+  if (project.customLayout) {
+    const CustomLayout = slug === "listerine" ? ListerineLayout : slug === "book-lounge" ? BookLoungeLayout : null;
     return (
       <>
         <div className="site-container">
@@ -34,7 +36,19 @@ export default async function ProjectPage({ params }) {
             </Link>
           </div>
         </div>
-        <ListerineLayout />
+        {CustomLayout && <CustomLayout />}
+        {project.images.length > 0 && (
+          <div className="project-images site-container">
+            {project.images.map((src, i) => (
+              <img
+                key={i}
+                src={src}
+                alt={`${project.title} — image ${i + 1}`}
+                loading="lazy"
+              />
+            ))}
+          </div>
+        )}
       </>
     );
   }
