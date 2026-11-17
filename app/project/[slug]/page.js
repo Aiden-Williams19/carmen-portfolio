@@ -42,7 +42,7 @@ export default async function ProjectPage({ params }) {
         {embeds.map((embed, i) => {
           const cleanUrl = embed.src.split("?")[0];
           return (
-            <div key={`embed-${i}`}>
+            <div key={`embed-${i}`} className="embed-block">
               <div
                 className={embed.type === "video" ? "embed-video" : "embed-audio"}
               >
@@ -53,14 +53,17 @@ export default async function ProjectPage({ params }) {
                   allow="autoplay; fullscreen"
                 />
               </div>
-              <a
-                href={cleanUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="embed-link"
-              >
-                {cleanUrl}
-              </a>
+              <div className="embed-bar">
+                <a
+                  href={cleanUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="embed-open"
+                >
+                  Open {embed.type} &nearr;
+                </a>
+                <span className="embed-url">{cleanUrl}</span>
+              </div>
             </div>
           );
         })}
