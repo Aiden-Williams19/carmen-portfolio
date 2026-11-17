@@ -230,129 +230,13 @@ button {
 /* ===== LISTERINE CUSTOM LAYOUT ===== */
 .lis {
   width: 100%;
-  overflow: hidden;
+  padding-bottom: 80px;
 }
 
-.lis-cream {
-  background: #f7f1e6;
-}
-
-.lis-spread {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 60vw;
-}
-
-@media (max-width: 768px) {
-  .lis-spread {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-}
-
-/* Spread 1 — left: print ad */
-.lis-spread-left {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.lis-spread-left img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Spread 1 — right: title + description */
-.lis-spread-right {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 48px 40px;
-}
-
-.lis-intro {
-  max-width: 480px;
-  text-align: center;
-}
-
-.lis-heading {
-  font-family: "Georgia", "Times New Roman", serif;
-  font-weight: 900;
-  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
-  line-height: 0.95;
-  text-transform: uppercase;
-  margin-bottom: 32px;
-}
-
-.lis-heading-shadow {
+.lis-page {
   display: block;
-  position: relative;
-  color: #3b4cc0;
-  text-shadow:
-    3px 3px 0 #c06080,
-    6px 6px 0 rgba(192, 96, 128, 0.35);
-}
-
-.lis-body {
-  font-size: 0.9375rem;
-  line-height: 1.65;
-  color: #333;
-  margin-bottom: 12px;
-}
-
-.lis-body:last-child {
-  margin-bottom: 0;
-}
-
-/* Spread 2 — left: repeating LISTERINE type */
-.lis-type-wall {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 40px 24px;
-  overflow: hidden;
-}
-
-.lis-repeater {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  line-height: 0.88;
-}
-
-.lis-word {
-  font-family: "Georgia", "Times New Roman", serif;
-  font-weight: 900;
-  font-size: clamp(2.8rem, 6vw, 5.5rem);
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-  display: block;
-}
-
-.lis-word-1 { color: #3b4cc0; }
-.lis-word-2 { color: #a86090; }
-.lis-word-3 { color: #d08098; }
-.lis-word-4 { color: #c07090; }
-.lis-word-5 { color: #b070a0; }
-.lis-word-6 { color: #9060b0; }
-.lis-word-7 { color: #3b4cc0; }
-
-/* Spread 2 — right: magazine mockup */
-.lis-mockup-panel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-}
-
-.lis-mockup {
   width: 100%;
-  max-width: 520px;
   height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.15));
 }
 
 .embed-video {
