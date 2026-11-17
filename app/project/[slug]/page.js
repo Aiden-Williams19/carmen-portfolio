@@ -40,7 +40,8 @@ export default async function ProjectPage({ params }) {
 
       <div className="project-images">
         {embeds.map((embed, i) => {
-          const cleanUrl = embed.src.split("?")[0];
+          const typeCount = embeds.filter((e, j) => e.type === embed.type && j <= i).length;
+          const mediaUrl = `/project/${slug}/${embed.type}/${typeCount}`;
           return (
             <div key={`embed-${i}`} className="embed-block">
               <div
@@ -48,21 +49,15 @@ export default async function ProjectPage({ params }) {
               >
                 <iframe
                   src={embed.src}
-                  title={`${project.title} — ${embed.type} ${i + 1}`}
+                  title={`${project.title} — ${embed.type} ${typeCount}`}
                   allowFullScreen
                   allow="autoplay; fullscreen"
                 />
               </div>
               <div className="embed-bar">
-                <a
-                  href={cleanUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="embed-open"
-                >
-                  Open {embed.type} &nearr;
-                </a>
-                <span className="embed-url">{cleanUrl}</span>
+                <Link href={mediaUrl} className="embed-open">
+                  {project.title} — {embed.type === "video" ? "Video" : "Audio"} &nearr;
+                </Link>
               </div>
             </div>
           );
