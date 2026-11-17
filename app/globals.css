@@ -227,6 +227,15 @@ button {
   width: 100%;
 }
 
+.project-images--fullbleed {
+  gap: 0;
+}
+
+.project-images--fullbleed img {
+  width: 100%;
+  display: block;
+}
+
 .embed-video {
   position: relative;
   width: 100%;
