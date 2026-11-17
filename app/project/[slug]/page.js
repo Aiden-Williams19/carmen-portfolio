@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectBySlug, getAllSlugs } from "../../../lib/projects";
+import ListerineLayout from "../../../components/ListerineLayout";
 
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -23,6 +24,21 @@ export default async function ProjectPage({ params }) {
 
   const embeds = project.embeds || [];
 
+  if (project.customLayout && slug === "listerine") {
+    return (
+      <>
+        <div className="site-container">
+          <div className="project-header">
+            <Link href="/" className="project-back">
+              &larr; Back to work
+            </Link>
+          </div>
+        </div>
+        <ListerineLayout />
+      </>
+    );
+  }
+
   return (
     <>
       <div className="site-container">
@@ -30,21 +46,17 @@ export default async function ProjectPage({ params }) {
           <Link href="/" className="project-back">
             &larr; Back to work
           </Link>
-          {!project.fullbleed && (
-            <>
-              <h1 className="project-title">{project.title}</h1>
-              <p className="project-meta">
-                {project.category} &middot; {project.year}
-              </p>
-              {project.description && (
-                <p className="project-description">{project.description}</p>
-              )}
-            </>
+          <h1 className="project-title">{project.title}</h1>
+          <p className="project-meta">
+            {project.category} &middot; {project.year}
+          </p>
+          {project.description && (
+            <p className="project-description">{project.description}</p>
           )}
         </div>
       </div>
 
-      <div className={project.fullbleed ? "project-images project-images--fullbleed" : "project-images site-container"}>
+      <div className="project-images site-container">
         {embeds.map((embed, i) => {
           const typeCount = embeds.filter((e, j) => e.type === embed.type && j <= i).length;
           const mediaUrl = `/project/${slug}/${embed.type}/${typeCount}`;
