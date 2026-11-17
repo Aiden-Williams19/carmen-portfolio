@@ -256,6 +256,19 @@ button {
   border: none;
 }
 
+.embed-link {
+  display: block;
+  font-size: 0.75rem;
+  color: #999;
+  word-break: break-all;
+  padding: 8px 0 16px;
+  transition: color 0.2s;
+}
+
+.embed-link:hover {
+  color: #1a1a1a;
+}
+
 /* ===== CONTACT PAGE ===== */
 .contact-page {
   padding: 80px 0;

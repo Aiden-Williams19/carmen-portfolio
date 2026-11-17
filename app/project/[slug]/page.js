@@ -39,19 +39,31 @@ export default async function ProjectPage({ params }) {
       </div>
 
       <div className="project-images">
-        {embeds.map((embed, i) => (
-          <div
-            key={`embed-${i}`}
-            className={embed.type === "video" ? "embed-video" : "embed-audio"}
-          >
-            <iframe
-              src={embed.src}
-              title={`${project.title} — ${embed.type} ${i + 1}`}
-              allowFullScreen
-              allow="autoplay; fullscreen"
-            />
-          </div>
-        ))}
+        {embeds.map((embed, i) => {
+          const cleanUrl = embed.src.split("?")[0];
+          return (
+            <div key={`embed-${i}`}>
+              <div
+                className={embed.type === "video" ? "embed-video" : "embed-audio"}
+              >
+                <iframe
+                  src={embed.src}
+                  title={`${project.title} — ${embed.type} ${i + 1}`}
+                  allowFullScreen
+                  allow="autoplay; fullscreen"
+                />
+              </div>
+              <a
+                href={cleanUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="embed-link"
+              >
+                {cleanUrl}
+              </a>
+            </div>
+          );
+        })}
 
         {project.images.map((src, i) => (
           <img
