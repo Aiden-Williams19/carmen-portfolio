@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectBySlug, getAllSlugs } from "../../../lib/projects";
@@ -24,6 +25,28 @@ export default async function ProjectPage({ params }) {
   if (!project) notFound();
 
   const embeds = project.embeds || [];
+
+  const renderEmbed = (embed, i) => {
+    const typeCount = embeds.filter((e, j) => e.type === embed.type && j <= i).length;
+    const mediaUrl = `/project/${slug}/${embed.type}/${typeCount}`;
+    return (
+      <div key={`embed-${i}`} className="embed-block">
+        <div className={embed.type === "video" ? "embed-video" : "embed-audio"}>
+          <iframe
+            src={embed.src}
+            title={`${project.title} — ${embed.type} ${typeCount}`}
+            allowFullScreen
+            allow="autoplay; fullscreen"
+          />
+        </div>
+        <div className="embed-bar">
+          <Link href={mediaUrl} className="embed-open">
+            {project.title} — {embed.type === "video" ? "Video" : "Audio"} ↗
+          </Link>
+        </div>
+      </div>
+    );
+  };
 
   const CustomLayout = project.customLayout
     ? slug === "listerine"
@@ -61,37 +84,17 @@ export default async function ProjectPage({ params }) {
           />
         )}
 
-        {embeds.map((embed, i) => {
-          const typeCount = embeds.filter((e, j) => e.type === embed.type && j <= i).length;
-          const mediaUrl = `/project/${slug}/${embed.type}/${typeCount}`;
-          return (
-            <div key={`embed-${i}`} className="embed-block">
-              <div
-                className={embed.type === "video" ? "embed-video" : "embed-audio"}
-              >
-                <iframe
-                  src={embed.src}
-                  title={`${project.title} — ${embed.type} ${typeCount}`}
-                  allowFullScreen
-                  allow="autoplay; fullscreen"
-                />
-              </div>
-              <div className="embed-bar">
-                <Link href={mediaUrl} className="embed-open">
-                  {project.title} — {embed.type === "video" ? "Video" : "Audio"} ↗
-                </Link>
-              </div>
-            </div>
-          );
-        })}
+        {embeds.map((embed, i) => !embed.afterImage && renderEmbed(embed, i))}
 
         {project.images.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt={`${project.title} — image ${i + 1}`}
-            loading={i === 0 && embeds.length === 0 && !project.heroImage ? "eager" : "lazy"}
-          />
+          <Fragment key={i}>
+            <img
+              src={src}
+              alt={`${project.title} — image ${i + 1}`}
+              loading={i === 0 && embeds.length === 0 && !project.heroImage ? "eager" : "lazy"}
+            />
+            {embeds.map((embed, j) => embed.afterImage === i + 1 && renderEmbed(embed, j))}
+          </Fragment>
         ))}
       </div>
     </>
