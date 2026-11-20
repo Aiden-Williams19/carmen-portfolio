@@ -71,6 +71,14 @@ export default async function ProjectPage({ params }) {
       </div>
 
       <div className="project-images site-container">
+        {project.heroImage && (
+          <img
+            src={project.heroImage}
+            alt={`${project.title} — key visual`}
+            loading="eager"
+          />
+        )}
+
         {embeds.map((embed, i) => {
           const typeCount = embeds.filter((e, j) => e.type === embed.type && j <= i).length;
           const mediaUrl = `/project/${slug}/${embed.type}/${typeCount}`;
@@ -100,7 +108,7 @@ export default async function ProjectPage({ params }) {
             key={i}
             src={src}
             alt={`${project.title} — image ${i + 1}`}
-            loading={i === 0 && embeds.length === 0 ? "eager" : "lazy"}
+            loading={i === 0 && embeds.length === 0 && !project.heroImage ? "eager" : "lazy"}
           />
         ))}
       </div>
