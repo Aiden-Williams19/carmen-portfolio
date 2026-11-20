@@ -25,33 +25,13 @@ export default async function ProjectPage({ params }) {
 
   const embeds = project.embeds || [];
 
-  if (project.customLayout) {
-    const CustomLayout = slug === "listerine" ? ListerineLayout : slug === "book-lounge" ? BookLoungeLayout : null;
-    return (
-      <>
-        <div className="site-container">
-          <div className="project-header">
-            <Link href="/" className="project-back">
-              &larr; Back to work
-            </Link>
-          </div>
-        </div>
-        {CustomLayout && <CustomLayout />}
-        {project.images.length > 0 && (
-          <div className="project-images site-container">
-            {project.images.map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt={`${project.title} — image ${i + 1}`}
-                loading="lazy"
-              />
-            ))}
-          </div>
-        )}
-      </>
-    );
-  }
+  const CustomLayout = project.customLayout
+    ? slug === "listerine"
+      ? ListerineLayout
+      : slug === "book-lounge"
+        ? BookLoungeLayout
+        : null
+    : null;
 
   return (
     <>
@@ -71,6 +51,8 @@ export default async function ProjectPage({ params }) {
       </div>
 
       <div className="project-images site-container">
+        {CustomLayout && <CustomLayout />}
+
         {project.heroImage && (
           <img
             src={project.heroImage}
@@ -96,7 +78,7 @@ export default async function ProjectPage({ params }) {
               </div>
               <div className="embed-bar">
                 <Link href={mediaUrl} className="embed-open">
-                  {project.title} — {embed.type === "video" ? "Video" : "Audio"} &nearr;
+                  {project.title} — {embed.type === "video" ? "Video" : "Audio"} ↗
                 </Link>
               </div>
             </div>
