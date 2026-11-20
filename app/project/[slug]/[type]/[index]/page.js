@@ -47,12 +47,22 @@ export default async function MediaPage({ params }) {
 
       <div className="media-page">
         <div className={type === "video" ? "embed-video" : "embed-audio"}>
-          <iframe
-            src={embed.src}
-            title={`${project.title} — ${type} ${index}`}
-            allowFullScreen
-            allow="autoplay; fullscreen"
-          />
+          {embed.file ? (
+            <video
+              src={embed.file}
+              poster={embed.poster}
+              controls
+              playsInline
+              preload="metadata"
+            />
+          ) : (
+            <iframe
+              src={embed.src}
+              title={`${project.title} — ${type} ${index}`}
+              allowFullScreen
+              allow="autoplay; fullscreen"
+            />
+          )}
         </div>
       </div>
     </div>

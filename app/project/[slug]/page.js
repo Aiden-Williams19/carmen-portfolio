@@ -32,12 +32,22 @@ export default async function ProjectPage({ params }) {
     return (
       <div key={`embed-${i}`} className="embed-block">
         <div className={embed.type === "video" ? "embed-video" : "embed-audio"}>
-          <iframe
-            src={embed.src}
-            title={`${project.title} — ${embed.type} ${typeCount}`}
-            allowFullScreen
-            allow="autoplay; fullscreen"
-          />
+          {embed.file ? (
+            <video
+              src={embed.file}
+              poster={embed.poster}
+              controls
+              playsInline
+              preload="metadata"
+            />
+          ) : (
+            <iframe
+              src={embed.src}
+              title={`${project.title} — ${embed.type} ${typeCount}`}
+              allowFullScreen
+              allow="autoplay; fullscreen"
+            />
+          )}
         </div>
         <div className="embed-bar">
           <Link href={mediaUrl} className="embed-open">
