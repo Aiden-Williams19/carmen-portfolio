@@ -29,7 +29,7 @@ export default function BookLoungeLayout() {
         </div>
         <div className="bl-image">
           <img
-            src="/images/book-lounge/asset-1.png"
+            src="/images/book-lounge/billboard-cutout.png"
             alt="The Book Lounge billboard — Mother-in-law coming to town?"
           />
         </div>

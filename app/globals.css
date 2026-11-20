@@ -400,9 +400,9 @@ button {
 
 .bl-image {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding: 40px 40px 40px 0;
+  padding: 40px 40px 0 0;
   overflow: hidden;
 }
 
@@ -423,7 +423,7 @@ button {
   }
 
   .bl-image {
-    padding: 0 24px 24px;
+    padding: 0 24px;
   }
 }
 
